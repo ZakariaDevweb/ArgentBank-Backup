@@ -8,6 +8,12 @@ const userProfile = createSlice({
     isLoggedIn: false,
   },
   reducers: {
+    setUser: (state, action) => {
+      state.user = action.payload;
+    },
+    setUserName: (state, action) => {
+      state.user.userName = action.payload;
+    },
     setLoginStatus: (state, action) => {
       state.isLoggedIn = action.payload;
     },

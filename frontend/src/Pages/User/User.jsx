@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { redirect, useLoaderData } from "react-router-dom";
+import { setUserName, setLoginStatus, setUser } from "../../features/userProfile";
 import Compte from "../../components/Compte/Compte";
 import "./User.css";
 
@@ -22,25 +23,64 @@ export default function User() {
   const dispatch = useDispatch();
   const [donnees, setDonnees] = useState(donneesJSON || []);
   const [formEdition, setFormEdition] = useState(false);
+  
+  const userProfile = useSelector((state) => state.user.user);
 
   useEffect(() => {
     if (profile) {
+      dispatch(setUser(profile));
+      dispatch(setLoginStatus(true));
       setDonnees(donneesJSON);
     }
   }, [profile, donneesJSON, dispatch]);
 
   const handleChange = async (e) => {
     e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    const updatedUser = { userName: data.userProfile };
+    const isUpdated = await updateUser(updatedUser);
+
+    if (isUpdated) {
+      setFormEdition(false);
+    } else {
+      console.error("La mise à jour a échoué.");
+    }
   };
 
-  let firstName = "Tony";
-  let lastName = "Stark";
-  let userName = "Iron";
+  const updateUser = async (user) => {
+    try {
+      const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${window.sessionStorage.getItem("userId")}`,
+        },
+        body: JSON.stringify(user),
+      });
+
+      if (response.ok) {
+        dispatch(setUserName(user.userName));
+        return true;
+      } else {
+        console.error("Échec de la mise à jour :", response.statusText);
+        return false;
+      }
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour :", error);
+      return false;
+    }
+  };
 
   return (
     <main className="main bg-dark">
       <div className="header">
-      <h1>Welcome back<br />{firstName} {lastName} {userName} !</h1>
+        <h1>
+          Welcome back
+          <br />
+          {userProfile && `${userProfile.firstName} ${userProfile.lastName}!`}
+        </h1>
 
         {formEdition ? (
           <form id="formulaire" onSubmit={handleChange}>
