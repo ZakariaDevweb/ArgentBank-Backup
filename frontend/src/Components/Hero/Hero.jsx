@@ -1,20 +1,22 @@
 import React from 'react';
-import '../../assets/styles/styles.css';
+import './Hero.css';
 
-const Hero = () => {
+export default function Hero() {
+  const subtitles = [
+    "No fees.",
+    "No minimum deposit.",
+    "High interest rates."
+  ];
+
   return (
-    <div>
-      <div className="hero">
-        <section className="hero-content">
-          <h2 className="sr-only">Promoted Content</h2>
-          <p className="subtitle">No fees.</p>
-          <p className="subtitle">No minimum deposit.</p>
-          <p className="subtitle">High interest rates.</p>
-          <p className="text">Open a savings account with Argent Bank today!</p>
-        </section>
-      </div>
+    <div className="hero">
+      <section className="hero-content">
+        <h2 className="sr-only">Promoted Content</h2>
+        {subtitles.map((text, index) => (
+          <p key={index} className="subtitle">{text}</p>
+        ))}
+        <p className="text">Open a savings account with Argent Bank today!</p>
+      </section>
     </div>
   );
-};
-
-export default Hero;
+}

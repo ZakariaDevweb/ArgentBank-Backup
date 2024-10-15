@@ -1,11 +1,11 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Layout from "../../Pages/layout.jsx";
-import Home from "../../Pages/HomePage/HomePage.jsx";
-import Sign, { action as signInAction } from "../../Pages/Connexion/Connexion.jsx";
-import User, { loader as loaderUser } from "../../Pages/Profil/Profil.jsx";
+import Layout from "../../pages/layout";
+import HomePage from "../../pages/HomePage/HomePage.jsx";
+import Connexion from "../../pages/Connexion/Connexion.jsx";
+import ErrorPage from "../../pages/ErrorPage/ErrorPage.jsx";
+import User, { loader as loaderUser } from "../../pages/User/User.jsx";
 
-// Configuration du routeur normal pour le site en ligne
 const router = createBrowserRouter([
   {
     path: "/",
@@ -14,7 +14,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <HomePage />,
+      },
+      {
+        path: "*",
+        element: <ErrorPage />,
       },
       {
         path: "/user",
@@ -23,14 +27,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/sign",
-        element: <Sign />,
-        action: signInAction,
+        element: <Connexion />,
       },
     ],
   },
 ]);
 
-// Fonction pour gérer le choix entre le mode maintenance et le mode normal
 export default function Router() {
   return <RouterProvider router={router}></RouterProvider>;
 }

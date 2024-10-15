@@ -1,38 +1,28 @@
-import React from "react";
-import { NavLink } from 'react-router-dom';
-import logo from '../../assets/img/argentBankLogo.png';
+import { Link } from "react-router-dom";
 
-export default function Nav() {
-  let isAuthenticated = true;
-  let userName = "Tony";
+import "./header.css";
 
-  if (!isAuthenticated) {
-    return (
-      <div className="header">
-        <div className="header-body">
-          <NavLink to="/">
-            <img className="main-nav-logo-image" src={logo} alt="Logo" />
-          </NavLink>
-          <nav className="nav">
-            <NavLink to="/profile" className="link" activeclassname="active"><i className="fa fa-user-circle sign-in-icon"></i> User</NavLink>
-            <NavLink to="/sign-in" onClick="" className="link" activeclassname="active">
-              <i className="fa fa-sign-out sign-in-icon"></i> Sign In</NavLink>
-          </nav>
+export default function Header() {
+
+  return (
+    <header>
+      <nav className="main-nav">
+        <Link to="/" className="main-nav-logo">
+          <img
+            className="main-nav-logo-image"
+            src="./img/argentBankLogo.webp"
+            alt="Argent Bank Logo"
+          />
+          <h1 className="sr-only">Argent Bank</h1>
+        </Link>
+        <div>
+            <Link to="/sign" className="main-nav-item">
+              <i className="fa fa-user-circle i-right"></i>
+              Sign In
+            </Link>
+
         </div>
-      </div>
-    )
-  } else {
-    return (
-      <div className="header">
-        <div className="header-body">
-          <NavLink to="/">
-            <img className="main-nav-logo-image" src={logo} alt="Logo" />
-          </NavLink>
-          <nav className="nav">
-            <NavLink to="/profile" className="link" activeclassname="active">{userName}</NavLink>
-            <NavLink to="/sign-in" onClick="" className="link" activeclassname="active"><i className="fa fa-user-circle sign-in-icon"></i>Sign Out</NavLink></nav>
-        </div>
-      </div>
-    );
-  }
+      </nav>
+    </header>
+  );
 }
