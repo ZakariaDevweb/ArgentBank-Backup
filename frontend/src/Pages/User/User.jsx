@@ -21,7 +21,7 @@ export default function User() {
   const { profile, donneesJSON } = useLoaderData();
   const dispatch = useDispatch();
   const [donnees, setDonnees] = useState(donneesJSON || []);
-  const [formEdition, setFormEdition] = useState(false);   
+  const [formEdition, setFormEdition] = useState(false);
 
   useEffect(() => {
     if (profile) {
