@@ -9,7 +9,7 @@ export async function loader() {
   const token = window.sessionStorage.getItem("userId");
   const profile = await getProfileUser(token);
   if (!profile) {
-    return redirect("/");
+    return redirect("/sign");
   }
 
   const response = await fetch("/datas/dataAccount.json");
