@@ -16,7 +16,7 @@ paths:
       summary: Login
       description: API for Login
       parameters:
-        - in: body
+        - in: body 
           name: body
           description: Login Payload
           required: true
