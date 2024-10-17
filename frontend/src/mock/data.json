@@ -2,7 +2,7 @@
   {
     "feature": [
       {
-        "img": [{ "src": "./img/icon-chat.png" }, { "alt": "Chat Icon" }]
+        "img": [{ "src": "./img/icon-chat.webp" }, { "alt": "Chat Icon" }]
       },
       {
         "h3": "You are our #1 priority"
